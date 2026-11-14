@@ -9,6 +9,35 @@ import '../widgets/primary_button.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  Widget _banner() => ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: Image.asset(
+      'assets/images/biblioteca.jpg',
+      height: 160,
+      width: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        height: 160,
+        color: Colors.blue.shade50,
+        child: const Icon(Icons.local_library, size: 72),
+      ),
+    ),
+  );
+
+  Widget _funcion(IconData icono, String texto) => Expanded(
+    child: Column(
+      children: [
+        Icon(icono, size: 32),
+        const SizedBox(height: 4),
+        Text(
+          texto,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +52,8 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  _banner(),
+                  const SizedBox(height: 16),
                   const Text(
                     '¡Bienvenido a BiblioGest!',
                     textAlign: TextAlign.center,
@@ -30,8 +61,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Gestiona tu biblioteca de forma fácil y rápida.',
+                    'BiblioGest es una aplicación para gestionar tu biblioteca: '
+                    'consulta el catálogo de libros, administra tu perfil y '
+                    'accede a tu cuenta de forma fácil y rápida.',
                     textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      _funcion(Icons.menu_book, 'Catálogo'),
+                      _funcion(Icons.person, 'Tu perfil'),
+                      _funcion(Icons.lock_open, 'Acceso seguro'),
+                    ],
                   ),
                   const SizedBox(height: 24),
                   PrimaryButton(
