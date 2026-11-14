@@ -1,30 +1,39 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:biblio_tech_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('La pantalla de inicio muestra bienvenida y 3 botones', (
+    tester,
+  ) async {
     await tester.pumpWidget(const MyApp());
+    expect(find.text('¡Bienvenido a BiblioGest!'), findsOneWidget);
+    expect(find.text('Iniciar Sesión'), findsOneWidget);
+    expect(find.text('Catálogo de Libros'), findsOneWidget);
+    expect(find.text('Mi Perfil'), findsOneWidget);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('El botón Iniciar Sesión navega a Login', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.ensureVisible(find.text('Iniciar Sesión'));
+    await tester.tap(find.text('Iniciar Sesión'));
+    await tester.pumpAndSettle();
+    expect(find.text('Login'), findsWidgets);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('El botón Catálogo de Libros navega al catálogo', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.ensureVisible(find.text('Catálogo de Libros'));
+    await tester.tap(find.text('Catálogo de Libros'));
+    await tester.pumpAndSettle();
+    expect(find.text('Catálogo de Libros'), findsWidgets);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('El botón Mi Perfil navega al perfil', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.ensureVisible(find.text('Mi Perfil'));
+    await tester.tap(find.text('Mi Perfil'));
+    await tester.pumpAndSettle();
+    expect(find.text('Mi Perfil'), findsWidgets);
   });
 }
