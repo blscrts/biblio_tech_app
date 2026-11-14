@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_input_decoration.dart';
 
-/// Campo de texto reutilizable. Con [readOnly] se ve gris, como en el diseño.
+/// Campo de texto reutilizable
 class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,
